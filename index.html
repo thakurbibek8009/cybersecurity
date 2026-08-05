@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Password Strength Analyzer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+```
+.container {
+  background: #1e293b;
+  padding: 30px;
+  border-radius: 12px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.strength-bar {
+  height: 10px;
+  border-radius: 5px;
+  margin-top: 15px;
+  background: gray;
+}
+
+.remarks {
+  margin-top: 15px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.suggestion {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #38bdf8;
+}
+```
+
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>🔐 Password Analyzer</h2>
+  <input type="password" id="password" placeholder="Enter password" onkeyup="checkPassword()" />
+
+  <div class="strength-bar" id="strengthBar"></div>
+
+  <div id="strengthText"></div>
+
+  <div class="remarks" id="remarks"></div>
+
+  <div class="suggestion" id="suggestion"></div>
+</div>
+
+<script>
+function checkPassword() {
+  let password = document.getElementById("password").value;
+  let strength = 0;
+  let remarks = [];
+
+  if (password.length >= 12) strength += 2;
+  else if (password.length >= 8) strength += 1;
+  else remarks.push("Use at least 8 characters");
+
+  if (/[A-Z]/.test(password)) strength++;
+  else remarks.push("Add uppercase letter");
+
+  if (/[a-z]/.test(password)) strength++;
+  else remarks.push("Add lowercase letter");
+
+  if (/[0-9]/.test(password)) strength++;
+  else remarks.push("Add a number");
+
+  if (/[!@#$%^&*]/.test(password)) strength++;
+  else remarks.push("Add special character");
+
+  let bar = document.getElementById("strengthBar");
+  let text = document.getElementById("strengthText");
+
+  if (strength <= 2) {
+    bar.style.background = "red";
+    text.innerHTML = "Weak Password 🔴";
+  } 
+  else if (strength <= 4) {
+    bar.style.background = "orange";
+    text.innerHTML = "Medium Password 🟡";
+  } 
+  else {
+    bar.style.background = "green";
+    text.innerHTML = "Strong Password 🟢";
+  }
+
+  document.getElementById("remarks").innerHTML = remarks.map(r => "• " + r).join("<br>");
+
+  // Suggestion generator
+  let suggestion = password;
+  if (!/[A-Z]/.test(suggestion)) suggestion += "A";
+  if (!/[a-z]/.test(suggestion)) suggestion += "a";
+  if (!/[0-9]/.test(suggestion)) suggestion += "1";
+  if (!/[!@#$%^&*]/.test(suggestion)) suggestion += "@";
+
+  while (suggestion.length < 12) {
+    suggestion += "X";
+  }
+
+  document.getElementById("suggestion").innerHTML =
+    "Suggested: " + suggestion;
+}
+</script>
+
+</body>
+</html>
