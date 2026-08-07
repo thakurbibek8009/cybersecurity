@@ -1,0 +1,9 @@
+===== Advanced Vulnerability Report =====
+Target IP:  142.250.183.46
+URL: https://www.youtube.com
+Time: 2026-08-06 09:29:26.968705
+
+Open Ports:
+
+Issues Found:
+- Server exposed: ESF

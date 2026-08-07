@@ -1,0 +1,10 @@
+=== AI Vulnerability Report ===
+
+Target: testphp.vulnweb.com
+IP: 44.228.249.3
+
+Open Ports:
+
+Missing Headers: 0
+
+Predicted Risk: Low
